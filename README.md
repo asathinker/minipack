@@ -34,6 +34,14 @@ minipack doc --mode dev ##文档开发
 minipack doc --mode prod ##正式文档预览
 ```
 
+运行 demo
+
+```bash
+cd demo
+yarn install
+minipack server
+```
+
 源码编译 minipack，运行 demo
 
 ```bash
