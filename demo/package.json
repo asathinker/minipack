@@ -1,0 +1,27 @@
+{
+  "name": "demo",
+  "version": "1.0.0-alpha.0",
+  "description": "迷你打包工具测试",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mini",
+    "webpack",
+    "pack"
+  ],
+  "author": "sixing",
+  "license": "ISC",
+  "dependencies": {
+    "antd": "^4.0.2",
+    "axios": "^0.19.2",
+    "highlight.js": "^9.18.1",
+    "rc-tween-one": "^2.6.8",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "devDependencies": {
+    "babel-plugin-import": "^1.13.0"
+  }
+}
