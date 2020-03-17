@@ -2,7 +2,7 @@ import loaderUtils from 'loader-utils';
 import md5 from 'js-md5';
 import { MINIPACK_DOC_DIR } from './consts';
 import path from 'path';
-import { writeFileSync } from 'fs';
+import { writeFileSync, existsSync, readFileSync } from 'fs';
 import showdown from 'showdown';
 import chalk from 'chalk';
 import filePath from './file-path';
@@ -30,13 +30,13 @@ const defaultOptions = {
  * }
  */
 function readHead(content) {
-  const regex = /^\-\-\-\s*[\r\n](([a-zA-Z]+:.*[\r\n])*)\-\-\-\s*[\r\n]/;
+  const regex = /^\-\-\-\s*[\r\n]+(([a-zA-Z]+:.*[\r\n]+)*)\-\-\-\s*[\r\n]+/;
   const matchItems = content.match(regex);
   const headObject = {};
   if (matchItems && matchItems.length > 0) {
     let head = matchItems[1];
     while (head.length > 0) {
-      const headItemRegex = /^([a-zA-Z]+):([\s\S]*?)[\r\n]/;
+      const headItemRegex = /^([a-zA-Z]+):([\s\S]*?)[\r\n]+/;
       const headMatchItems = head.match(headItemRegex);
       if (headMatchItems && headMatchItems.length > 0) {
         Object.assign(headObject, {
@@ -61,7 +61,7 @@ function readHead(content) {
  * 这里填写api文档信息
  */
 function readAPI(content) {
-  const regex = /##\s+API\s*[\r\n][\s\S]*/;
+  const regex = /##\s+API\s*[\r\n]+[\s\S]*/;
   const matchItems = content.match(regex);
   return {
     api: matchItems && matchItems.length > 0 ? matchItems[0] : null,
@@ -85,7 +85,7 @@ function readAPI(content) {
  * ```
  */
 function readDemoCode(content) {
-  const regex = /```JS\s+DEMO\s*[\r\n]([\s\S]*)```/;
+  const regex = /```JS\s+DEMO\s*[\r\n]+([\s\S]*)```/;
   const matchItems = content.match(regex);
   return {
     code: matchItems && matchItems.length > 0 ? matchItems[1] : null,
@@ -129,8 +129,14 @@ export default function docLoader(content, map, meta) {
         MINIPACK_DOC_DIR,
         md5(resourcePath) + '.js'
       );
-      //把code写入到文件中
-      writeFileSync(codeFilePath, code.code);
+      let originalFileCotent = '';
+      if (existsSync(codeFilePath)) {
+        originalFileCotent = readFileSync(codeFilePath).toString('UTF-8');
+      }
+      if (originalFileCotent != code.code) {
+        //把code写入到文件中
+        writeFileSync(codeFilePath, code.code);
+      }
       //记录代码块路径
       codePath = codeFilePath;
     } catch (error) {
