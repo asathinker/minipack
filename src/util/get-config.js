@@ -42,6 +42,7 @@ export default function getConfig(rootPath, docMode = false) {
           return;
         }
       }
+      config.docs = [];
       if (
         config.doc &&
         typeof config.doc.dir === 'string' &&

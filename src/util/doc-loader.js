@@ -5,7 +5,7 @@ import path from 'path';
 import { writeFileSync } from 'fs';
 import showdown from 'showdown';
 import chalk from 'chalk';
-
+import filePath from './file-path';
 //默认doc-loader的options
 const defaultOptions = {
   inject: 'MINIPACK_DOCS',
@@ -152,7 +152,7 @@ export default function docLoader(content, map, meta) {
 
   let targetContent = "import React from 'react';\n";
   if (codePath && options.async !== true) {
-    targetContent += `import __DemoComponent__ from '${codePath}';\n`;
+    targetContent += `import __DemoComponent__ from '${filePath(codePath)}';\n`;
   }
   //docs注入到全局环境中
   targetContent += `window['${options.inject}'] = window['${options.inject}'] || []; \n`;
@@ -166,7 +166,9 @@ export default function docLoader(content, map, meta) {
       __createDemoComponent__ = `function() {
             return React.createElement(React.Suspense, {
                 fallback: React.createElement('div', {children:'正在加载中...'}),
-                children: React.createElement(React.lazy(() => import('${codePath}')))
+                children: React.createElement(React.lazy(() => import('${filePath(
+                  codePath
+                )}')))
             });
         }`;
     } else {

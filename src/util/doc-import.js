@@ -5,6 +5,7 @@ import path from 'path';
 import { writeFileSync, existsSync } from 'fs';
 import showdown from 'showdown';
 import chalk from 'chalk';
+import filePath from './file-path';
 
 //默认doc-loader的options
 const defaultOptions = {
@@ -27,14 +28,17 @@ export default function docLoader(content, map, meta) {
   );
   //文件目录
   const resourcePath = this.resourcePath;
-  if (options.entry && resourcePath.endsWith(options.entry)) {
+  if (
+    options.entry &&
+    path.normalize(resourcePath).endsWith(path.normalize(options.entry))
+  ) {
     const minpackDocFilePath = path.resolve(
       options.context,
       MINIPACK_DOC_DIR,
       MINIPACK_DOC_ENTRY_FILE
     );
     if (existsSync(minpackDocFilePath))
-      content = `require('${minpackDocFilePath}');\n` + content;
+      content = `require('${filePath(minpackDocFilePath)}');\n` + content;
   }
   this.callback(null, content, map, meta);
   return;

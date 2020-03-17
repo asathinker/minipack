@@ -10,7 +10,7 @@ import { MINIPACK_DOC_ENTRY_FILE, MINIPACK_DOC_DIR } from './util/consts';
 import { existsSync, unlinkSync, writeFileSync, mkdirSync } from 'fs';
 import path from 'path';
 import fs from 'fs';
-
+import filePath from './util/file-path';
 const argv = yargs
   .usage('minipack doc')
   .option('mode', {
@@ -52,7 +52,7 @@ function createDocEntryFile(rootPath, docs) {
   try {
     if ((docs || []).length == 0) return null;
     const fileContent = (docs || []).reduce((total, doc) => {
-      return total + `require('${doc}');\n`;
+      return total + `require('${filePath(doc)}');\n`;
     }, '');
     const docEntryFileDir = path.resolve(rootPath, MINIPACK_DOC_DIR);
     if (existsSync(docEntryFileDir)) {

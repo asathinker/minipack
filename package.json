@@ -1,6 +1,6 @@
 {
   "name": "@asathinker/minipack",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.8",
   "description": "迷你打包工具",
   "main": "lib/index.js",
   "scripts": {
