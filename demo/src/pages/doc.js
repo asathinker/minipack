@@ -6,7 +6,6 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/github-gist.css';
 import javascript from 'highlight.js/lib/languages/javascript';
 import typescript from 'highlight.js/lib/languages/typescript';
-import '../.minipack.doc/.minipack.doc';
 import './doc.less';
 
 hljs.registerLanguage('javascript', javascript);

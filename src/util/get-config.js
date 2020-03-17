@@ -42,9 +42,13 @@ export default function getConfig(rootPath, docMode = false) {
           return;
         }
       }
-      if (typeof config.docs === 'string' && config.docs.length > 0) {
+      if (
+        config.doc &&
+        typeof config.doc.dir === 'string' &&
+        config.doc.dir.length > 0
+      ) {
         //解析docs目录下面所有的doc文件
-        const files = glob.sync(path.resolve(config.docs, '**/*.md'), {
+        const files = glob.sync(path.resolve(config.doc.dir, '**/*.md'), {
           cwd: rootPath
         });
         //把docs转化为对象形式

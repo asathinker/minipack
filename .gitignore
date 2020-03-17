@@ -2,6 +2,7 @@ node_modules
 lib
 demo/node_modules
 demo/src/.minipack.doc
+demo/src/minipack.doc
 demo/dist
 .DS_Store
 yarn-error.log

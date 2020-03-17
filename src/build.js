@@ -3,6 +3,7 @@ import applyWebpackDev from './config/webpack.dev';
 import applyWebpackProd from './config/webpack.prod';
 import getConfig from './util/get-config';
 import webpack from 'webpack';
+import chalk from 'chalk';
 
 const argv = yargs
   .usage('minipack build')

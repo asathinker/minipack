@@ -166,6 +166,13 @@ export function getModuleRules(config, mode) {
         {
           loader: 'babel-loader',
           options: getBabelOptions()
+        },
+        {
+          loader: 'doc-import',
+          options: {
+            context: config.appSrc,
+            entry: config.doc && config.doc.entry
+          }
         }
       ]
     },
@@ -176,6 +183,13 @@ export function getModuleRules(config, mode) {
         {
           loader: 'babel-loader',
           options: getBabelOptions()
+        },
+        {
+          loader: 'doc-import',
+          options: {
+            context: config.appSrc,
+            entry: config.doc && config.doc.entry
+          }
         },
         {
           loader: 'awesome-typescript-loader',
@@ -197,9 +211,12 @@ export function getModuleRules(config, mode) {
           options: {
             context: config.appSrc,
             async:
-              (config.docLoaderOptions || {}).async === false ? false : true,
+              ((config.doc && config.doc.loaderOptions) || {}).async === false
+                ? false
+                : true,
             inject:
-              (config.docLoaderOptions || {}).inject || MINIPACK_DOCS_INJECT
+              ((config.doc && config.doc.loaderOptions) || {}).inject ||
+              MINIPACK_DOCS_INJECT
           }
         }
       ]
