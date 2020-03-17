@@ -71,10 +71,15 @@ module.exports = {
   output: { path: 'dist', publicPath: '/' },
   //devServer设置，具体参考https://www.webpackjs.com/configuration/dev-server/
   devServer: { port: 8000 },
-  // docs所在的目录
-  docs: 'src/components',
-  // doc-loader的配置
-  docLoaderOptions: { async: true },
+  //doc配置
+  doc: {
+    // doc的入口
+    entry: 'src/pages/doc.js',
+    // docs所在的目录
+    dir: 'src/components',
+    // doc-loader的配置
+    loaderOptions: { async: true }
+  },
   // 额外的babel plugins设置
   extraBabelPlugins: [['import', { libraryName: 'antd', style: true }]],
   // 额外的babel presets设置
