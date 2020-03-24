@@ -18,6 +18,7 @@ export default function apply(config) {
     output: getOutput({ output, appRoot }),
     context: appRoot,
     mode: 'production',
+    devtool: false,
     devServer: getDevServer({ appRoot, devServer, output }),
     module: {
       rules: getModuleRules(config, 'prod')

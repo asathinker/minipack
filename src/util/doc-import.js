@@ -1,17 +1,8 @@
 import loaderUtils from 'loader-utils';
-import md5 from 'js-md5';
 import { MINIPACK_DOC_DIR, MINIPACK_DOC_ENTRY_FILE } from './consts';
 import path from 'path';
-import { writeFileSync, existsSync } from 'fs';
-import showdown from 'showdown';
-import chalk from 'chalk';
+import { existsSync } from 'fs';
 import filePath from './file-path';
-
-//默认doc-loader的options
-const defaultOptions = {
-  inject: 'MINIPACK_DOCS',
-  async: true
-};
 
 /**
  * webpack loader，用于解析markdown doc文档
@@ -20,7 +11,7 @@ const defaultOptions = {
  * @param {*} map
  * @param {*} meta
  */
-export default function docLoader(content, map, meta) {
+export default function docImport(content, map, meta) {
   //获取options
   const options = Object.assign(
     {},

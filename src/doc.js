@@ -32,7 +32,7 @@ function deleteDirSync(dir) {
       var curPath = path.resolve(dir, file);
       if (fs.lstatSync(curPath).isDirectory()) {
         // recurse
-        deleteFolderRecursive(curPath);
+        deleteDirSync(curPath);
       } else {
         // delete file
         fs.unlinkSync(curPath);
@@ -75,7 +75,7 @@ function createDocEntryFile(rootPath, docs) {
   return null;
 }
 
-function runDev({ cwd, mode }) {
+function runDoc({ cwd, mode }) {
   const config = getConfig(cwd);
   if (config) {
     const docFilePath = createDocEntryFile(config.appSrc, config.docs);
@@ -115,5 +115,5 @@ function runDev({ cwd, mode }) {
 
 if (require.main === module) {
   console.log(chalk.green('启动文档模式'));
-  runDev({ ...argv, cwd: process.cwd() });
+  runDoc({ ...argv, cwd: process.cwd() });
 }
